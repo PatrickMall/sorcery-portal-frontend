@@ -39,3 +39,9 @@ This will consist of a sign in portal which the user can sign up to and question
 ## Entity Relationship Diagram
 
 ![entity relationship diagram for sorcery portal](./ERD-for-sorcery-portal.png)
+
+## Basic wire frame
+
+For my wire frame I used adobe XD, you can walk through my proposed application and see how they pages will link. This is a basic wire frame with no styling and will not be how the final application will look like.
+
+Link to wire frame: https://xd.adobe.com/view/8573f601-9d27-4027-ad5b-5fed236703af-d020/?fullscreen
