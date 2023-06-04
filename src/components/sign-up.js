@@ -1,53 +1,62 @@
-import { useRef, useState, useEffect } from 'react'
-import { faCheck, faTimes, faInfoCircle } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useState } from 'react'
+import FormInput from './common/form-input'
+import apiRoute from '../lib/apiRoute'
+import authAxios from '../lib/authAxios';
 
-const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/
-const PWD_REGEX = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/
 const SignUp = () => {
-    const userRef = useRef()
-    const errRef = useRef()
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [firstName, setFirstName] = useState('')
+    const [lastName, setLastName] = useState('')
+    const [phoneNumber, setPhoneNumber] = useState('')
+    const [error, setError] = useState('')
 
-    const [user, setUser] = useState("")
-    const [validName, setValidName] = useState(false)
-    const [userFocus, setUserFocus] = useState(false)
+    const Submit = async () => {
+        const user = {
+            email: email,
+            password: password,
+            first_name: firstName,
+            last_name: lastName,
+            phone_number: phoneNumber,
+        }
+    
+        try {
+            const response = await authAxios.post(`${apiRoute}signup`, { user: user });
+            console.log(response);
+            if (response.status === 200) {
+                const loginResponse = await authAxios.post(`${apiRoute}login`, {
+                    user: { email: user.email, password: user.password }
+                })
+                localStorage.setItem("token", loginResponse.data.token);
+                console.log(localStorage)
+                setError("");
+                // window.location.href = "/";
+            }
+            setError("");
+            // window.location.href = "/";
+        } catch (error) {
+            setError(error.response.data.message);
+        }
+    }
+    
 
-    const [pwd, setPwd] = useState("")
-    const [validPwd, setValidPwd] = useState(false)
-    const [pwdFocus, setPwdFocus] = useState(false)
 
-    const [matchPwd, setMatchPwd] = useState("")
-    const [validMatch, setValidMatch] = useState(false)
-    const [MatchFocus, setMatchFocus] = useState(false)
-
-    const [errMessage, setErrMessage] = useState('')
-    const [success, setSuccess] = useState(false)
-
-    useEffect(() => {
-        userRef.current.focus()
-    },[])
-
-    useEffect(() => {
-        const result = USER_REGEX.test(user)
-        console.log(result)
-        console.log(user)
-        setValidName(result)
-    }, [user])
-
-    useEffect(() => {
-        const result = PWD_REGEX.test(pwd)
-        console.log(result)
-        console.log(pwd)
-        setValidPwd(result)
-        const match = pwd === matchPwd
-        setValidMatch(match)
-    }, [pwd, matchPwd]
-        )
 
     return (
-        <div>
-            
-        </div>
+        <section>
+            <form onSubmit={(e) => {
+                e.preventDefault()
+                Submit()
+            }}>
+                <FormInput label={"first name"} type={"text"} value={firstName} onChange={setFirstName}  />
+                <FormInput label={"last name"} type={"text"} value={lastName} onChange={setLastName}  />
+                <FormInput label={"phone number"} type={"text"} value={phoneNumber} onChange={setPhoneNumber}  />
+                <FormInput label={"email"} type={"email"} value={email} onChange={setEmail} />
+                <FormInput label={"password"} type={"password"} value={password} onChange={setPassword} />
+                <button type='submit'>Sign Up</button>
+            </form>
+            {error && <div className="bg-red-200 w-full rounded">Error: {error}</div>}
+        </section>
     )
 }
 

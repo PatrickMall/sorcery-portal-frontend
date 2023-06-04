@@ -1,0 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Forum&display=swap');
+
+:root {
+    --white: #f4f4f4;
+    --grey: #d4d0c5;
+    --light-gold: #e9ddb9;
+    --gold: #c9b167;
+    --dark-grey: #171627;
+    --black: #0a0a0b; 
+}
+
+.forum {
+    font-family: 'Forum', cursive;
+    color: var(--white);
+    text-transform: uppercase;
+}
+
+.mont {
+    font-family: 'Montserrat', sans-serif;
+    color: var(--white);
+}
+
+.button {
+    background-image: url(../static/images/Gold-texture-background-1080-72dpi.jpg);
+    background-repeat: cover;
+    font-size: 33px;
+    font-family: 'Montserrat', sans-serif;
+    border: 2px solid var(--gold);
+    padding: 0px 30px;
+    text-transform: uppercase;
+}
+
+button:hover {
+    box-shadow: 0 2px 18px var(--gold);
+}
