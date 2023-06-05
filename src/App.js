@@ -45,17 +45,13 @@ function App() {
   
   const [user, setUser] = useState("");
   const [background, setBackground] = useState(backgrounds[Math.floor(Math.random()* backgrounds.length -1)]);
-  console.log(background)
 
   async function fetchData() {
-    console.log(localStorage)
     const token = localStorage.getItem("token");
-    console.log(token)
     if (token) {
       let userId;
       try {
         userId = jwt_decode(token);
-        console.log(userId)
       } catch (error) {
         console.log("Invalid token:", error);
         setUser("");

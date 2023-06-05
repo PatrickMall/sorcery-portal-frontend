@@ -23,18 +23,12 @@ const Questionnaire = () => {
   const handleNextQuestion = () => {
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
-    } else {
-      saveAnswer();
-    }
+    } 
   };
 
   const saveAnswer = async () => {
-  const response = await authAxios.post(`${apiRoute}api/v1/answers`, {answer});
+  const response = await authAxios.post(`${apiRoute}api/v1/answers`, {question_id: currentQuestionIndex +1, answer: answer});
     console.log(response)
-    // Reset the questionnaire state after saving answers
-    setCurrentQuestionIndex(0);
-    setAnswer([]);
-    // fetchQuestions();
   };
 
 const currentQuestion = questions[currentQuestionIndex];
@@ -53,7 +47,7 @@ const currentQuestion = questions[currentQuestionIndex];
           />
         </div>
       )}
-      <button className='button mt-8' onClick={handleNextQuestion}>
+      <button className='button mt-8' onClick={(e) => { e.preventDefault(); saveAnswer(); handleNextQuestion() }}>
         {currentQuestionIndex < questions.length - 1 ? 'Next' : 'Submit'}
       </button>
     </div>
