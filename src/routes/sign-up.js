@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import FormInput from './common/form-input'
+import FormInput from '../components/common/form-input'
 import apiRoute from '../lib/apiRoute'
 import authAxios from '../lib/authAxios';
 
@@ -24,11 +24,13 @@ const SignUp = () => {
             const response = await authAxios.post(`${apiRoute}signup`, { user: user });
             console.log(response);
             if (response.status === 200) {
-                const loginResponse = await authAxios.post(`${apiRoute}login`, {
-                    user: { email: user.email, password: user.password }
-                })
-                localStorage.setItem("token", loginResponse.data.token);
-                console.log(localStorage)
+                const tokenResponse = response.headers.get("Authorization")
+                localStorage.setItem("token", tokenResponse);
+                 console.log(localStorage)
+                // const loginResponse = await authAxios.post(`${apiRoute}login`, {
+                //     user: { email: user.email, password: user.password }
+                // })
+                
                 setError("");
                 // window.location.href = "/";
             }
@@ -53,7 +55,7 @@ const SignUp = () => {
                 <FormInput label={"phone number"} type={"text"} value={phoneNumber} onChange={setPhoneNumber}  />
                 <FormInput label={"email"} type={"email"} value={email} onChange={setEmail} />
                 <FormInput label={"password"} type={"password"} value={password} onChange={setPassword} />
-                <button type='submit'>Sign Up</button>
+                <button className='button' type='submit'>Sign Up</button>
             </form>
             {error && <div className="bg-red-200 w-full rounded">Error: {error}</div>}
         </section>

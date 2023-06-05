@@ -3,7 +3,7 @@ import axios from "axios";
 const authAxios = axios.create({
     baseURL: "http://localhost:5007",
     headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        Authorization: `${localStorage.getItem("token")}`,
     }
 })
 

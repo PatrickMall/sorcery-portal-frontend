@@ -10,7 +10,9 @@ module.exports = {
       'light-gold': '#e9ddb9',
       'gold': '#c9b167',
       'dark-grey': '#171627',
-      'black': '#0a0a0b'
+      'black': '#0a0a0b',
+      'black-transparent': 'rgba(10, 10, 11, 0.85)',
+      'black-transparent2': 'rgba(10, 10, 11, 0)'
     },
     extend: {},
   },

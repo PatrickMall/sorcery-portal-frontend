@@ -7,7 +7,8 @@
     --light-gold: #e9ddb9;
     --gold: #c9b167;
     --dark-grey: #171627;
-    --black: #0a0a0b; 
+    --black: #0a0a0b;
+    --black-transparent: rgba(10, 10, 11, 0.95);
 }
 
 .forum {
@@ -33,4 +34,9 @@
 
 button:hover {
     box-shadow: 0 2px 18px var(--gold);
+}
+
+.box-shadow:focus{
+    box-shadow: 0 0 10px var(--white);
+    background: var(--black);
 }
