@@ -45,12 +45,12 @@ function App() {
   ]
   //states
   const [user, setUser] = useState("");
-  const [background, setBackground] = useState(backgrounds[Math.floor(Math.random()* backgrounds.length -1)]);
+  const [background, setBackground] = useState(backgrounds[Math.floor(Math.random()* 30)]);
   const changeBackground = () => {
-    setBackground(backgrounds[Math.floor(Math.random()* backgrounds.length -1)])
+    setBackground(backgrounds[Math.floor(Math.random()* 30)])
   }
 
-console.log(user)
+console.log(background)
   /// fetch signed in user data from server
   async function fetchData() {
     const token = localStorage.getItem("token");
@@ -92,7 +92,7 @@ console.log(user)
         </Routes>
         <Profile user={user} />
         {/* <Questionnaire changeBackground={changeBackground} /> */}
-        {/* <SignUp />*/}
+        {/* <SignUp /> */}
         {/* <Login /> */}
       </div>
       

@@ -45,8 +45,8 @@ const SignUp = () => {
 
 
     return (
-        <section>
-            <form onSubmit={(e) => {
+        <section className='flex flex-col-2 items-center justify-around'>
+            <form className='bg-black-transparent p-8 rounded-lg mt-16' onSubmit={(e) => {
                 e.preventDefault()
                 Submit()
             }}>
