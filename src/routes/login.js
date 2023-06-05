@@ -6,19 +6,20 @@ import { Link } from "react-router-dom";
 
 const Login = () => {
 
-
+    let user
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("")
 
 
     const submit = async () => {
-        const user = {
+          user = {
           email: email,
           password: password,
-        };
-        try {
+          };
+      try {
           const response = await authAxios.post(`${apiRoute}login`, { user: user });
+          console.log(response)
             const tokenResponse = response.headers.get("Authorization")
           localStorage.setItem("token", tokenResponse);
             console.log(localStorage)

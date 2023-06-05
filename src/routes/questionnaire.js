@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import apiRoute from '../lib/apiRoute';
 import authAxios from '../lib/authAxios';
-const Questionnaire = () => {
+const Questionnaire = ({ changeBackground }) => {
   const [questions, setQuestions] = useState([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answer, setAnswer] = useState();
@@ -23,6 +23,7 @@ const Questionnaire = () => {
   const handleNextQuestion = () => {
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
+      changeBackground()
     } 
   };
   console.log(currentQuestionIndex + 1)

@@ -8,6 +8,7 @@ import apiRoute from "./lib/apiRoute";
 import Questionnaire from "./routes/questionnaire";
 import NavBar from "./components/navbar";
 import Login from "./routes/login";
+import Profile from "./routes/profile";
 
 function App() {
   const backgrounds = [
@@ -42,10 +43,15 @@ function App() {
     "bg-[url('./static/images/sorcery-stills/background29.png')]",
     "bg-[url('./static/images/sorcery-stills/background30.png')]",
   ]
-  
+  //states
   const [user, setUser] = useState("");
   const [background, setBackground] = useState(backgrounds[Math.floor(Math.random()* backgrounds.length -1)]);
+  const changeBackground = () => {
+    setBackground(backgrounds[Math.floor(Math.random()* backgrounds.length -1)])
+  }
 
+console.log(user)
+  /// fetch signed in user data from server
   async function fetchData() {
     const token = localStorage.getItem("token");
     if (token) {
@@ -59,7 +65,7 @@ function App() {
       }
       try {
         const response = await authAxios.get(`${apiRoute}current_user`);
-        setUser(response.data.id);
+        setUser(response.data);
       } catch (error) {
         console.log("Error fetching user data:", error);
         setUser("");
@@ -84,9 +90,10 @@ function App() {
       
           
         </Routes>
-        <Questionnaire />
-        {/* <SignUp />
-        <Login /> */}
+        <Profile user={user} />
+        {/* <Questionnaire changeBackground={changeBackground} /> */}
+        {/* <SignUp />*/}
+        {/* <Login /> */}
       </div>
       
     </>
