@@ -9,6 +9,7 @@ import Questionnaire from "./routes/questionnaire";
 import NavBar from "./components/navbar";
 import Login from "./routes/login";
 import Profile from "./routes/profile";
+import Dashboard from "./routes/dashboard";
 
 function App() {
   const backgrounds = [
@@ -50,7 +51,6 @@ function App() {
     setBackground(backgrounds[Math.floor(Math.random()* 30)])
   }
 
-console.log(background)
   /// fetch signed in user data from server
   async function fetchData() {
     const token = localStorage.getItem("token");
@@ -59,7 +59,6 @@ console.log(background)
       try {
         userId = jwt_decode(token);
       } catch (error) {
-        console.log("Invalid token:", error);
         setUser("");
         return;
       }
@@ -67,7 +66,6 @@ console.log(background)
         const response = await authAxios.get(`${apiRoute}current_user`);
         setUser(response.data);
       } catch (error) {
-        console.log("Error fetching user data:", error);
         setUser("");
       }
     } else {
@@ -78,26 +76,31 @@ console.log(background)
   useEffect(() => {
     fetchData();
   }, []);
-
-  return (
+  if (!user) {
+    return (
+      <>
+        <NavBar user={user} />
+        <div className={`App ${background} p-12 h-screen overflow-hidden`}>
+          <Routes>
+            <Route path={"/"} element={<Login />} />
+            <Route path={"/signup"} element={<SignUp />} />
+          </Routes>
+        </div>
+      
+      </>
+    );
+  } else {
     <>
-       <NavBar />
-      <div className={`App ${background} p-12 h-screen overflow-hidden`}>
-     
-        <Routes>
-          <Route path={"/questionaire"} element={<Questionnaire />} />
-      
-      
-          
-        </Routes>
-        <Profile user={user} />
-        {/* <Questionnaire changeBackground={changeBackground} /> */}
-        {/* <SignUp /> */}
-        {/* <Login /> */}
-      </div>
-      
-    </>
-  );
+        <NavBar user={user} />
+        <div className={`App ${background} p-12 h-screen overflow-hidden`}>
+          <Routes>
+            <Route path={"/questionnaire"} element={<Questionnaire changeBackground={changeBackground} /> } />
+            <Route path={"/profile"} element={<Profile user={user} />} />
+            <Route path={"/"} element={<Dashboard user={user} />} />
+          </Routes>
+        </div>
+      </>
+  }
 }
 
 export default App

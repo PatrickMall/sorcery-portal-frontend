@@ -28,18 +28,23 @@ const Login = () => {
         }
       };
 
-    return (
-        <div className="mx-80 p-8 border border-white flex flex-col items-center justify-center">
-            <form onSubmit={(e) => {
+  return (
+      <div className="flex justify-center items-center">
+        <div className="bg-black-transparent border border-white p-16 rounded-lg w-4/12">
+        <div className="flex flex-col items-center justify-around"> 
+        <h2 className="forum text-5xl mb-8">Login</h2>
+        <form onSubmit={(e) => {
                 e.preventDefault()
                 submit()
             }}>
             <FormInput label= {"email"} type={"email"} value={email} onChange={setEmail} />
             <FormInput label={"password"} type={"password"} value={password} onChange={setPassword} />
                 <button className="button my-8" type="submit">Login</button>
-                <p className="forum">New to Sorcery Portal?<Link to={"/signup"}><span className="text-xl ml-4">Sign up here</span></Link></p>
-                </form>
-        </div>
+                <p className="forum">New to Sorcery Portal?<Link to={"/signup"}><span className="text-3xl ml-4">Sign up here</span></Link></p>
+          </form>
+          </div>   
+      </div>
+      </div>
     )
 }
 export default Login

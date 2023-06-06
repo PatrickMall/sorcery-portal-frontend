@@ -13,7 +13,6 @@ const Profile = ({ user }) => {
 
     
     const deleteProfile = async () => {
-        const { ask } = useConfirm();
     
             const response = await authAxios.delete(`${apiRoute}signup`);
         
@@ -26,7 +25,7 @@ const Profile = ({ user }) => {
 
     return (
         <div className="flex justify-center items-center">
-        <div className="bg-black-transparent p-16 rounded-lg w-4/12">
+        <div className="bg-black-transparent border border-white p-16 rounded-lg w-4/12">
             {updateProfile && (
                 <div className= "flex flex-col items-center">
                     <h2 className="forum text-5xl mb-8">Update Your details</h2>
@@ -42,7 +41,7 @@ const Profile = ({ user }) => {
                 
             {!updateProfile && (
                 <div>
-                    <h2 className="forum text-5xl mb-16">Your details</h2>
+                    <h2 className="forum text-5xl mb-8">Your details</h2>
                     <p className="forum text-3xl mb-8">First Name: {updateFirstName}</p>
                     <p className="forum text-3xl mb-8">Last Name: {updateLastName}</p>
                     <p className="forum text-3xl mb-8">Email: {updateEmail}</p>

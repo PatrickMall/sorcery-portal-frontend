@@ -46,7 +46,10 @@ const SignUp = () => {
 
     return (
         <section className='flex flex-col-2 items-center justify-around'>
-            <form className='bg-black-transparent p-8 rounded-lg mt-16' onSubmit={(e) => {
+            <div className='bg-black-transparent border border-white p-16 rounded-lg w-4/12'>
+                <div className='flex flex-col items-center justify-around'>
+                <h2 className="forum text-5xl mb-8">Sign Up</h2>
+                <form onSubmit={(e) => {
                 e.preventDefault()
                 Submit()
             }}>
@@ -56,7 +59,9 @@ const SignUp = () => {
                 <FormInput label={"email"} type={"email"} value={email} onChange={setEmail} />
                 <FormInput label={"password"} type={"password"} value={password} onChange={setPassword} />
                 <button className='button' type='submit'>Sign Up</button>
-            </form>
+                    </form>
+                    </div>
+            </div>
             {error && <div className="bg-red-200 w-full rounded">Error: {error}</div>}
         </section>
     )

@@ -1,6 +1,5 @@
+import { Sling as Hamburger } from 'hamburger-react'
 import logo from "../static/images/sorcery-logo-new-white.png"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faUser } from '@fortawesome/free-solid-svg-icons'
 import { Link } from "react-router-dom"
 const NavBar = () => {
     return (
@@ -11,8 +10,10 @@ const NavBar = () => {
             <Link to={"/"}>
                 <h1 className="forum text-5xl">Sorcery Portal</h1>
             </Link>
-            <Link to={"/profile"}>
-                <FontAwesomeIcon icon={faUser} style={{ color: "#f4f4f4" }} className="mx-8 fa-2x" />
+            <Link to={""}>
+                <div className='m-8'>
+                    <Hamburger color='#f4f4f4' easing="ease-in" size={50} rounded/>
+                </div>
             </Link>
         </div>
     )
