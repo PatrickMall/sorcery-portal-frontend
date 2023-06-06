@@ -27,9 +27,9 @@ const SignUp = () => {
                 const tokenResponse = response.headers.get("Authorization")
                 localStorage.setItem("token", tokenResponse);
                  console.log(localStorage)
-                // const loginResponse = await authAxios.post(`${apiRoute}login`, {
-                //     user: { email: user.email, password: user.password }
-                // })
+                const loginResponse = await authAxios.post(`${apiRoute}login`, {
+                    user: { email: user.email, password: user.password }
+                })
                 
                 setError("");
                 // window.location.href = "/";

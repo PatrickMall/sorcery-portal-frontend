@@ -24,7 +24,7 @@ const Login = () => {
           localStorage.setItem("token", tokenResponse);
             console.log(localStorage)
         } catch (error) {
-          setError(error.response.data.message);
+          setError("");
         }
       };
 

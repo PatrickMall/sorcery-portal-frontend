@@ -10,6 +10,7 @@ import NavBar from "./components/navbar";
 import Login from "./routes/login";
 import Profile from "./routes/profile";
 import Dashboard from "./routes/dashboard";
+import PageNotFound from "./routes/pagenotfound";
 
 function App() {
   const backgrounds = [
@@ -50,6 +51,7 @@ function App() {
   const changeBackground = () => {
     setBackground(backgrounds[Math.floor(Math.random()* 30)])
   }
+  console.log(user)
 
   /// fetch signed in user data from server
   async function fetchData() {
@@ -64,6 +66,7 @@ function App() {
       }
       try {
         const response = await authAxios.get(`${apiRoute}current_user`);
+        console.log(response)
         setUser(response.data);
       } catch (error) {
         setUser("");
@@ -76,30 +79,39 @@ function App() {
   useEffect(() => {
     fetchData();
   }, []);
+
+
   if (!user) {
     return (
-      <>
-        <NavBar user={user} />
-        <div className={`App ${background} p-12 h-screen overflow-hidden`}>
+      <> 
+        <div className={`App ${background} h-screen overflow-hidden`}>
+          <NavBar user={user} />
+          <div className="m-16">
           <Routes>
             <Route path={"/"} element={<Login />} />
             <Route path={"/signup"} element={<SignUp />} />
-          </Routes>
+            <Route path={"*"} element={<PageNotFound />} />
+            </Routes>
+          </div>
         </div>
       
       </>
     );
   } else {
+    return (
     <>
+      <div className={`App ${background} h-screen overflow-hidden`}>
         <NavBar user={user} />
-        <div className={`App ${background} p-12 h-screen overflow-hidden`}>
+        <div className="m-16">
           <Routes>
             <Route path={"/questionnaire"} element={<Questionnaire changeBackground={changeBackground} /> } />
             <Route path={"/profile"} element={<Profile user={user} />} />
             <Route path={"/"} element={<Dashboard user={user} />} />
+            <Route path={"*"} element={<PageNotFound />} />
           </Routes>
+          </div>
         </div>
-      </>
+      </>)
   }
 }
 
