@@ -12,7 +12,7 @@ const Dashboard = () => {
     const [updateOpen, setUpdateOpen] = useState(false)
     const [updatedAnswer, setUpdatedAnswer] = useState()
 
-//async function that initally fetches the first answer and then subsequent answers afterwards
+//async function that initially fetches the first answer and then subsequent answers afterwards
     
     async function fetchQuestionsAndAnswers() {
         const questionOffset = (currentPage - 1) * perPage;
@@ -27,17 +27,18 @@ const Dashboard = () => {
         // map that renders answers from DB
         let fetchedAnswers;
         if (!updateOpen) {
-            fetchedAnswers = answerData.data.data.map(answer => (
-                <li className="m-8 flex" key={answer.id}><div className="h-64 overflow-scroll">{answer.answer}</div><div><button id={answer.question_id} onClick={() => { setUpdateOpen(true); setUpdatedAnswer("")}} className="button text-black my-2 mx-8">Update</button></div></li>
+            fetchedAnswers = answerData.data.data.sort((a, b) => a.question_id - b.question_id).map(answer => (
+                <li className="m-8 flex" key={answer.question_id}><div className="h-64 overflow-scroll">{answer.answer}</div><div><button id={answer.question_id} onClick={() => { setUpdateOpen(true); setUpdatedAnswer(answer.answer)}} className="button text-black my-2 mx-8">Update</button></div></li>
             
-            ));
+            ))
         // Option that turns answer text into a textarea to edit the answer 
         } else {
-           fetchedAnswers = answerData.data.data.map(answer => (
-               <li className="m-8 flex" key={answer.id}><form className="overflow-scroll"><textarea id={answer.question_id} className="w-[800px] h-64 bg-black-transparent2 border border-gold rounded-lg box-shadow focus:outline-none p-4 m-2" value={updatedAnswer} onChange={(e) => setUpdatedAnswer(e.target.value )}/></form><div><button id={answer.question_id} onClick={(e) => { saveUpdate(e)}} className="button text-black my-16 mx-16">Save</button></div></li>
+           fetchedAnswers = answerData.data.data.sort((a, b) => a.question_id - b.question_id).map(answer => (
+               <li className="m-8 flex" key={answer.question_id}><form className="overflow-scroll"><textarea id={answer.question_id} className="w-[800px] h-64 bg-black-transparent2 border border-gold rounded-lg box-shadow focus:outline-none p-4 m-2" value={updatedAnswer} onChange={(e) => setUpdatedAnswer(e.target.value)}/></form><div><button id={answer.question_id} onClick={(e) => { saveUpdate(e)}} className="button text-black my-16 mx-16">Save</button></div></li>
             )); 
            
         }
+        console.log(answerData)
         // map that renders questions from DB
         const fetchedQuestions = questionData.data.data.map(question => (
             <li className="m-8" key={question.id}><div className="h-32 text-lg overflow-scroll"><span className="forum text-3xl">{question.id}.</span><br />{question.text}</div></li>

@@ -2,6 +2,7 @@ import { useState } from 'react'
 import FormInput from '../components/common/form-input'
 import apiRoute from '../lib/apiRoute'
 import authAxios from '../lib/authAxios';
+import axios from "axios";
 
 const SignUp = () => {
     const [email, setEmail] = useState('')
@@ -21,18 +22,17 @@ const SignUp = () => {
         }
     
         try {
-            const response = await authAxios.post(`${apiRoute}signup`, { user: user });
+            const response = await axios.post(`${apiRoute}signup`, { user: user });
             console.log(response);
             if (response.status === 200) {
                 const tokenResponse = response.headers.get("Authorization")
                 localStorage.setItem("token", tokenResponse);
                  console.log(localStorage)
-                const loginResponse = await authAxios.post(`${apiRoute}login`, {
+                const loginResponse = await axios.post(`${apiRoute}login`, {
                     user: { email: user.email, password: user.password }
                 })
-                
                 setError("");
-                // window.location.href = "/";
+                window.location.href = "/";
             }
             setError("");
             // window.location.href = "/";

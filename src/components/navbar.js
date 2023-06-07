@@ -3,6 +3,8 @@ import logo from "../static/images/sorcery-logo-new-white.png"
 import { Link } from "react-router-dom"
 import { useState } from 'react'
 import NavItem from './common/nav-item'
+import authAxios from "../lib/authAxios"
+import apiRoute from "../lib/apiRoute"
 const NavBar = ({ user, background }) => {
 
     const [isOpen, setOpen] = useState(false)
@@ -11,6 +13,14 @@ const NavBar = ({ user, background }) => {
         setOpen(!isOpen)
     }
     console.log(isOpen)
+
+    const logout = async () => {
+        try {
+            const response = await authAxios.delete(`${apiRoute}logout`)
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     return (
         <div >
@@ -40,7 +50,10 @@ const NavBar = ({ user, background }) => {
                             </div>   
                             <div className='my-8' onClick={() => {toggleMenu()}}>    
                                 <NavItem url={"/questionnaire"} label={"Questionnaire"} toggle={setOpen} />
-                            </div>    
+                            </div> 
+                            <div className='my-8 flex flex-cols justify-center items-center' onClick={() => {toggleMenu()}}>    
+                                        <button toggle={setOpen} className="button" onClick={(e) => { e.preventDefault();  logout()}}>Log out</button> 
+                            </div>  
                         </div>
                     </div>
                     )}
