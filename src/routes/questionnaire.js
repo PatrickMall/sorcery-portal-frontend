@@ -24,7 +24,9 @@ const Questionnaire = ({ changeBackground }) => {
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
       changeBackground()
-    } 
+    } else {
+      window.location.href = "/";
+    }
   };
   console.log(currentQuestionIndex + 1)
   console.log(answer)

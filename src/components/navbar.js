@@ -30,11 +30,19 @@ const NavBar = ({ user, background }) => {
             {isOpen && (
                 <div>
                     {user && (
-                        <div>
-                            <Link to={"/dashboard"}>
-                                <h3 className='forum'>Dashboard</h3>
-                            </Link>
+                        <div className='flex justify-center items-center'>
+                        <div className='bg-black-transparent border border-white p-16 rounded-lg w-4/12 m-32'>
+                            <div className='my-8' onClick={() => {toggleMenu()}}>
+                                <NavItem url={"/"} label={"dashboard"} />
+                            </div>
+                            <div className='my-8' onClick={() => {toggleMenu()}}>    
+                                <NavItem url={"/profile"} label={"Your profile"} toggle={setOpen} />
+                            </div>   
+                            <div className='my-8' onClick={() => {toggleMenu()}}>    
+                                <NavItem url={"/questionnaire"} label={"Questionnaire"} toggle={setOpen} />
+                            </div>    
                         </div>
+                    </div>
                     )}
                     {!user && (
                         <div className='flex justify-center items-center'>

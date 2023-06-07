@@ -11,7 +11,7 @@ import Login from "./routes/login";
 import Profile from "./routes/profile";
 import Dashboard from "./routes/dashboard";
 import PageNotFound from "./routes/pagenotfound";
-
+import UpdateAnswer from "./routes/update-answer";
 function App() {
   const backgrounds = [
     "bg-[url('./static/images/sorcery-stills/background1.png')]",
@@ -51,7 +51,6 @@ function App() {
   const changeBackground = () => {
     setBackground(backgrounds[Math.floor(Math.random()* 30)])
   }
-  console.log(user)
 
   /// fetch signed in user data from server
   async function fetchData() {
@@ -65,17 +64,15 @@ function App() {
         return;
       }
       try {
-        const response = await authAxios.get(`${apiRoute}current_user`);
-        console.log(response)
-        setUser(response.data);
+        const response = await authAxios.get(`${apiRoute}current_user`)
+        setUser(response.data)
       } catch (error) {
-        setUser("");
+        setUser("")
       }
     } else {
-      setUser("");
+      setUser("")
     }
   }
-
   useEffect(() => {
     fetchData();
   }, []);
@@ -84,12 +81,15 @@ function App() {
   if (!user) {
     return (
       <> 
-        <div className={`App ${background} h-screen overflow-hidden`}>
+        <div className={`App ${background} h-screen`}>
           <NavBar user={user} />
           <div className="m-16">
           <Routes>
             <Route path={"/"} element={<Login />} />
-            <Route path={"/signup"} element={<SignUp />} />
+              <Route path={"/signup"} element={<SignUp />} />
+              <Route path={"/profile"} element={<Login />} />
+              <Route path={"/questionnaire"} element={<Login />} />
+              <Route path={"/profile"} element={<Login />} />
             <Route path={"*"} element={<PageNotFound />} />
             </Routes>
           </div>
@@ -107,7 +107,8 @@ function App() {
             <Route path={"/questionnaire"} element={<Questionnaire changeBackground={changeBackground} /> } />
             <Route path={"/profile"} element={<Profile user={user} />} />
             <Route path={"/"} element={<Dashboard user={user} />} />
-            <Route path={"*"} element={<PageNotFound />} />
+              <Route path={"*"} element={<PageNotFound />} />
+              <Route path={"/update-answer"} element={<UpdateAnswer />} />
           </Routes>
           </div>
         </div>
