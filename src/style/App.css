@@ -40,3 +40,7 @@ button:hover {
     box-shadow: 0 0 10px var(--white);
     background: var(--black);
 }
+
+textarea {
+    resize: none;
+}

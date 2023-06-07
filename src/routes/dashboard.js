@@ -1,8 +1,6 @@
 import authAxios from "../lib/authAxios"
 import apiRoute from "../lib/apiRoute"
 import { useEffect, useState } from "react"
-import UpdateAnswer from "./update-answer"
-import { Link } from "react-router-dom"
 
 const Dashboard = () => {
     const [answers, setAnswers] = useState([])
@@ -11,7 +9,7 @@ const Dashboard = () => {
     const perPage = 1 // Number of questions per page
     const [updateOpen, setUpdateOpen] = useState(false)
     const [updatedAnswer, setUpdatedAnswer] = useState()
-    console.log(updateOpen)
+    console.log(updatedAnswer)
     async function fetchQuestionsAndAnswers() {
         const questionOffset = (currentPage - 1) * perPage;
         const answerOffset = (currentPage - 1) * perPage;
@@ -24,12 +22,12 @@ const Dashboard = () => {
         let fetchedAnswers;
         if (!updateOpen) {
             fetchedAnswers = answerData.data.data.map(answer => (
-                <li className="m-8 flex" key={answer.id}><div className="h-64 overflow-scroll">{answer.answer}</div><div><button id={answer.question_id} onClick={(e) => { updateAnswer(e, answer)}} className="button text-black my-16 mx-4">Update</button></div></li>
+                <li className="m-8 flex" key={answer.id}><div className="h-64 overflow-scroll">{answer.answer}</div><div><button id={answer.question_id} onClick={() => { setUpdateOpen(true); setUpdatedAnswer("")}} className="button text-black my-16 mx-4">Update</button></div></li>
             ));
             
         } else {
            fetchedAnswers = answerData.data.data.map(answer => (
-                <li className="m-8 flex" key={answer.id}><form className="overflow-scroll"><textarea className="w-[800px] h-64 bg-black-transparent2 focus:border border-white" value={updatedAnswer.answer} onChange={setUpdatedAnswer}/></form><div><button id={answer.question_id} onClick={(e) => { updateAnswer(e) }} className="button text-black my-16 mx-16">Update</button></div></li>
+               <li className="m-8 flex" key={answer.id}><form className="overflow-scroll"><textarea id={answer.question_id} className="w-[800px] h-64 bg-black-transparent2 border border-gold rounded-lg box-shadow focus:outline-none p-4 m-2" value={updatedAnswer} onChange={(e) => setUpdatedAnswer(e.target.value )}/></form><div><button id={answer.question_id} onClick={(e) => { saveUpdate(e)}} className="button text-black my-16 mx-16">Save</button></div></li>
             )); 
             
         }
@@ -42,9 +40,7 @@ const Dashboard = () => {
         setAnswers(fetchedAnswers)
     }
       
-    useEffect(() => {
-        fetchQuestionsAndAnswers()
-    }, [updateOpen])
+    
 
     const nextPage = () => {
         setCurrentPage(currentPage + 1)
@@ -60,11 +56,19 @@ const Dashboard = () => {
     const isPrevDisabled = currentPage === 1;
 
 
-    const updateAnswer = (e, answer) => {
-        e.preventDefault()
-        setUpdateOpen(true)
-        setUpdatedAnswer({ question_id: e.target.id, answer: answer.answer})
+    const saveUpdate = async (e) => {
+        try {
+            const response = await authAxios.patch(`${apiRoute}/api/v1/answers/${e.target.id}`, {question_id: e.target.id, answer: updatedAnswer})
+            setUpdateOpen(false)
+        } catch (error) {
+            console.log(error)
+            }
     }
+
+    useEffect(() => {
+        fetchQuestionsAndAnswers()
+    }, [updateOpen, updatedAnswer]);
+
       
     return (
         <div className="flex flex-col justify-center items-center">
