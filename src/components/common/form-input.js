@@ -10,7 +10,7 @@ const FormInput = ({ label, type, value, onChange }) => {
               onChange={(e) => onChange(e.target.value)}
               name={label}
               id={label}
-              className="mt-2 bg-black-transparent2 focus:bg-black text-white text-xl focus:outline-none box-shadow border border-white w-96 flex flex-col-2 items-center justify-around mb-4 p-2 forum"
+              className="mt-1 bg-black-transparent2 focus:bg-black text-white text-xl focus:outline-none box-shadow border border-white w-96 flex flex-col-2 items-center justify-around mb-4 p-2 forum"
             ></input>
           </div>
         );

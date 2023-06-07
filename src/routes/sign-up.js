@@ -35,7 +35,7 @@ const SignUp = () => {
                 window.location.href = "/";
             }
             setError("");
-            // window.location.href = "/";
+            window.location.href = "/";
         } catch (error) {
             setError(error.response.data.message);
         }
@@ -46,9 +46,9 @@ const SignUp = () => {
 
     return (
         <section className='flex flex-col-2 items-center justify-around'>
-            <div className='bg-black-transparent border border-white p-16 rounded-lg w-4/12'>
+            <div className='bg-black-transparent border border-white px-16 py-8 rounded-lg w-4/12'>
                 <div className='flex flex-col items-center justify-around'>
-                <h2 className="forum text-5xl mb-8">Sign Up</h2>
+                <h2 className="forum text-5xl mb-4">Sign Up</h2>
                 <form onSubmit={(e) => {
                 e.preventDefault()
                 Submit()
@@ -58,7 +58,7 @@ const SignUp = () => {
                 <FormInput label={"phone number"} type={"text"} value={phoneNumber} onChange={setPhoneNumber}  />
                 <FormInput label={"email"} type={"email"} value={email} onChange={setEmail} />
                 <FormInput label={"password"} type={"password"} value={password} onChange={setPassword} />
-                <button className='button' type='submit'>Sign Up</button>
+                <button className='button mt-4' type='submit'>Sign Up</button>
                     </form>
                     </div>
             </div>

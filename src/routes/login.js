@@ -7,26 +7,24 @@ import { Link } from "react-router-dom";
 
 const Login = () => {
 
-    let user
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [error, setError] = useState("")
+  let user
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("")
 
-
-    const submit = async () => {
+  const submit = async () => {
           user = {
           email: email,
           password: password,
           }
-      try {
-          const response = await axios.post(`${apiRoute}login`, { user: user });
-
-            const tokenResponse = response.headers.get("Authorization")
-          localStorage.setItem("token", tokenResponse);
-
-        } catch (error) {
-          setError("");
-        }
+    try {
+      const response = await axios.post(`${apiRoute}login`, { user: user });
+      const tokenResponse = response.headers.get("Authorization")
+      localStorage.setItem("token", tokenResponse);
+      window.location.href = "/";
+      } catch (error) {
+        setError("");
+      }
       };
 
   return (

@@ -13,16 +13,10 @@ const Profile = ({ user }) => {
 
     
     const deleteProfile = async () => {
-    
-            const response = await authAxios.delete(`${apiRoute}signup`);
-        
+        const response = await authAxios.delete(`${apiRoute}signup`);
+        window.location.href = "/";
         }
     
-    
-
-
-
-
     return (
         <div className="flex justify-center items-center">
         <div className="bg-black-transparent border border-white p-16 rounded-lg w-4/12">

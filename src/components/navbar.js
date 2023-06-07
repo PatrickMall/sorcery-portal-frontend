@@ -17,8 +17,10 @@ const NavBar = ({ user, background }) => {
     const logout = async () => {
         try {
             const response = await authAxios.delete(`${apiRoute}logout`)
+            window.location.href = "/";
         } catch (error) {
             console.log(error)
+            window.location.href = "/";
         }
     }
 
