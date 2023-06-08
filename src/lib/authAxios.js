@@ -1,9 +1,10 @@
 import axios from "axios";
 
 const authAxios = axios.create({
-    baseURL: "https://sorcery-portal-backend.herokuapp.com",
+    baseURL: "http://localhost:5001",
     headers: {
         Authorization: `${localStorage.getItem("token")}`,
+        
     }
 })
 

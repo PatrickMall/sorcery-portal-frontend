@@ -8,6 +8,7 @@ const Profile = ({ user }) => {
     const [updateFirstName, setUpdateFirstName] = useState(user.first_name)
     const [updateLastName, setUpdateLastName] = useState(user.last_name)
     const [updateEmail, setUpdateEmail] = useState(user.email)
+    const [updatePassword, setUpdatePassword] = useState(user.password)
     const [updatePhoneNumber, setUpdatePhoneNumber] = useState(user.phone_number)
   
 
@@ -15,11 +16,27 @@ const Profile = ({ user }) => {
     const deleteProfile = async () => {
         const response = await authAxios.delete(`${apiRoute}signup`);
         window.location.href = "/";
-        }
+    }
     
+    const updateProfileSend = async () => {
+        const updateUser = {
+            user: {
+                email: updateEmail,
+                first_name: updateFirstName,
+                last_name: updateLastName,
+                phone_number: updatePhoneNumber
+            }
+        }
+        try {
+            const response = await authAxios.patch(`${apiRoute}signup`, updateUser)
+            window.location.href = "/";
+        } catch (error) {
+            console.log(error)
+        }
+    }
     return (
         <div className="flex justify-center items-center">
-        <div className="bg-black-transparent border border-white p-16 rounded-lg w-4/12">
+        <div className="bg-black-transparent border border-white p-16 rounded-lg w-7/12">
             {updateProfile && (
                 <div className= "flex flex-col items-center">
                     <h2 className="forum text-5xl mb-8">Update Your details</h2>
@@ -27,6 +44,7 @@ const Profile = ({ user }) => {
                         <FormInput type={"text"} label={"First Name"} onChange={setUpdateFirstName} value={updateFirstName} />
                         <FormInput type={"text"} label={"Last Name"} onChange={setUpdateLastName} value={updateLastName} />
                         <FormInput type={"email"} label={"Email"} onChange={setUpdateEmail} value={updateEmail} />
+                        <FormInput type={"password"} label={"Password"} onChange={setUpdatePassword} value={updatePassword} />
                         <FormInput type={"text"} label={"Phone Number"} onChange={setUpdatePhoneNumber} value={updatePhoneNumber} />
                     </form>
                     </div>
@@ -43,7 +61,7 @@ const Profile = ({ user }) => {
                 </div>
             )}
             <div className="flex flex-col items-center justify-around">
-                {updateProfile ? <button className="button mt-8" onClick={() => setUpdateProfile(false)}>Save</button> : <button className="button mt-8" onClick={() => setUpdateProfile(true)}>Update My Profile</button>}
+                    {updateProfile ? <button className="button mt-8" onClick={() => { setUpdateProfile(false); updateProfileSend() }}>Save</button> : <button className="button mt-8" onClick={() => setUpdateProfile(true)}>Update My Profile</button>}
                     <button className="button mt-12" onClick={(e) => { e.preventDefault();  deleteProfile()}}>Delete my account</button>
             </div>
             </div>

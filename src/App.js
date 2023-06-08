@@ -47,7 +47,9 @@ function App() {
   ]
   //states
   const [user, setUser] = useState("");
-  const [background, setBackground] = useState(backgrounds[Math.floor(Math.random()* 30)]);
+  const [background, setBackground] = useState(backgrounds[Math.floor(Math.random() * 30)]);
+
+  //background changer
   const changeBackground = () => {
     setBackground(backgrounds[Math.floor(Math.random()* 30)])
   }
@@ -73,16 +75,20 @@ function App() {
       setUser("")
     }
   }
+
   useEffect(() => {
     fetchData();
+
   }, []);
 
+  //check to see if user has answers or not
 
+  //returns
   if (!user) {
     return (
       <> 
         <div className={`App ${background} h-screen`}>
-          <NavBar user={user} />
+          <NavBar user={user}/>
           <div className="m-16">
           <Routes>
             <Route path={"/"} element={<Login />} />
@@ -101,14 +107,13 @@ function App() {
     return (
     <>
       <div className={`App ${background} h-screen overflow-hidden`}>
-        <NavBar user={user} />
+          <NavBar user={user}/>
         <div className="m-16">
           <Routes>
             <Route path={"/questionnaire"} element={<Questionnaire changeBackground={changeBackground} /> } />
             <Route path={"/profile"} element={<Profile user={user} />} />
             <Route path={"/"} element={<Dashboard user={user} />} />
               <Route path={"*"} element={<PageNotFound />} />
-              <Route path={"/update-answer"} element={<UpdateAnswer />} />
           </Routes>
           </div>
         </div>

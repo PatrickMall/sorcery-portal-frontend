@@ -1,19 +1,33 @@
 import { Sling as Hamburger } from 'hamburger-react'
 import logo from "../static/images/sorcery-logo-new-white.png"
 import { Link } from "react-router-dom"
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import NavItem from './common/nav-item'
 import authAxios from "../lib/authAxios"
 import apiRoute from "../lib/apiRoute"
-const NavBar = ({ user, background }) => {
+import { hasFormSubmit } from '@testing-library/user-event/dist/utils'
+const NavBar = ({ user, background}) => {
 
     const [isOpen, setOpen] = useState(false)
+    const [needQuestionnaire, setNeedQuestionnaire] = useState(false)
     
+
     const toggleMenu = () => {
         setOpen(!isOpen)
     }
-    console.log(isOpen)
+    const checkAnswer = async () => {
+        try {
+            const response = await authAxios.get(`${apiRoute}/api/v1/answers`)
+            if (response.data.data.length === 0) { 
+                setNeedQuestionnaire(true);
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
+
+    useEffect(() => {checkAnswer()}, [])
     const logout = async () => {
         try {
             const response = await authAxios.delete(`${apiRoute}logout`)
@@ -23,6 +37,7 @@ const NavBar = ({ user, background }) => {
             window.location.href = "/";
         }
     }
+
 
     return (
         <div >
@@ -50,9 +65,10 @@ const NavBar = ({ user, background }) => {
                             <div className='my-8' onClick={() => {toggleMenu()}}>    
                                 <NavItem url={"/profile"} label={"Your profile"} toggle={setOpen} />
                             </div>   
-                            <div className='my-8' onClick={() => {toggleMenu()}}>    
-                                <NavItem url={"/questionnaire"} label={"Questionnaire"} toggle={setOpen} />
-                            </div> 
+                                    {!needQuestionnaire && (
+                                        <div className='my-8' onClick={() => { toggleMenu() }}>
+                                            <NavItem url={"/questionnaire"} label={"Questionnaire"} toggle={setOpen} />
+                                        </div>)}
                             <div className='my-8 flex flex-cols justify-center items-center' onClick={() => {toggleMenu()}}>    
                                         <button toggle={setOpen} className="button" onClick={(e) => { e.preventDefault();  logout()}}>Log out</button> 
                             </div>  
