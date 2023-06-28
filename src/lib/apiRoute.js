@@ -1,2 +1,2 @@
-const apiRoute = "http://localhost:5001/"
+const apiRoute = "https://sorcery-portal-backend.herokuapp.com/"
 export default apiRoute

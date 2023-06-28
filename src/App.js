@@ -112,7 +112,7 @@ function App() {
           <Routes>
             <Route path={"/questionnaire"} element={<Questionnaire changeBackground={changeBackground} /> } />
             <Route path={"/profile"} element={<Profile user={user} />} />
-            <Route path={"/"} element={<Dashboard user={user} />} />
+            <Route path={"/"} element={<Dashboard user={user} changeBackground={changeBackground} />} />
               <Route path={"*"} element={<PageNotFound />} />
           </Routes>
           </div>

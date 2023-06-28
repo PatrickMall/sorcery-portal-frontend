@@ -20,7 +20,9 @@ const Login = () => {
     try {
       const response = await axios.post(`${apiRoute}login`, { user: user });
       const tokenResponse = response.headers.get("Authorization")
+      
       localStorage.setItem("token", tokenResponse);
+      console.log(localStorage)
       window.location.href = "/";
       } catch (error) {
         setError("");

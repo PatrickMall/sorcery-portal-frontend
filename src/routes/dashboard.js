@@ -3,7 +3,8 @@ import apiRoute from "../lib/apiRoute"
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import UploadWidget from "../components/uploadWidget"
-const Dashboard = () => {
+import ImageGallery from "../components/moodboard"
+const Dashboard = ({ changeBackground }) => {
 
     //states
     const [answers, setAnswers] = useState([])
@@ -39,7 +40,6 @@ const Dashboard = () => {
             ));
            
         }
-        console.log(answerData)
         // map that renders questions from DB
         const fetchedQuestions = questionData.data.data.map(question => (
             <li className="m-8" key={question.id}><div className="h-32 text-lg overflow-scroll scrolling"><span className="forum text-3xl">{question.id}.</span><br />{question.text}</div></li>
@@ -49,15 +49,17 @@ const Dashboard = () => {
         setAnswers(fetchedAnswers)
     }
     
-    console.log(answers)
+
 
     /// manage pagination for answers
     const nextPage = () => {
         setCurrentPage(currentPage + 1)
+        changeBackground()
     }
     const prevPage = () => {
         if (currentPage > 1) {
             setCurrentPage(currentPage - 1)
+            changeBackground()
         }
     }
     const isNextDisabled = questions.length <= currentPage * perPage;
@@ -97,7 +99,8 @@ const Dashboard = () => {
                 <div className="bg-black-transparent border border-white p-16 rounded-lg w-11/12 overflow-auto">
                     <h1 className="forum text-5xl">Dashboard</h1>
                     <h2 className="forum text-3xl mt-4">Your Answers</h2>
-                    {/* <UploadWidget /> */}
+                    {/* <ImageGallery />
+                    <UploadWidget /> */}
                     <div className="flex flex-col-2">
                         <ul className="mont w-96">{questions.slice((currentPage - 1) * perPage, currentPage * perPage)}</ul>
                         <ul className="mont flex-1 mt-10">{answers.slice((currentPage - 1) * perPage, currentPage * perPage)}</ul>

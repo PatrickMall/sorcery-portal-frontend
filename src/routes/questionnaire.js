@@ -28,11 +28,9 @@ const Questionnaire = ({ changeBackground }) => {
       window.location.href = "/";
     }
   };
-  console.log(currentQuestionIndex + 1)
-  console.log(answer)
+
   const saveAnswer = async () => {
     const response = await authAxios.post(`${apiRoute}api/v1/answers`, { question_id: currentQuestionIndex + 1, answer: answer });
-    console.log(response)
     setAnswer("")
   };
 
