@@ -224,7 +224,11 @@ const submit = async () => {
     setError("");
   }
 };
+```
+
 Here is the general authAxios component which I use for every other request
+
+```javascript
 const authAxios = axios.create({
   baseURL: "https://sorcery-portal-backend.herokuapp.com",
   headers: {
